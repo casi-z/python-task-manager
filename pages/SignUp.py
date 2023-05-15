@@ -3,19 +3,16 @@ from components import AppLayout
 
 # Qt - Библиотека для интерфейсов
 
-
+# Создаём окно с регистрацией
 class SignUp(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Регистрация")
 
-        # self.username_input = QLineEdit()
-        # self.password_input = QLineEdit()
-        # self.password_repeat = QLineEdit()
-
         main = AppLayout()
 
+        # Создаём элементы (поля, надписи)
         main.render([
             QLabel('Регистрация'),
             QLabel('Придумайте логин'),
@@ -31,5 +28,4 @@ class SignUp(QMainWindow):
         container = QWidget()
         container.setLayout(main)
 
-        # Устанавливаем центральный виджет Window.
         self.setCentralWidget(container)
