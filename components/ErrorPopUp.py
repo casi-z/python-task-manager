@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import *
-import sys
+from PyQt6.QtCore import QSize
 from components import AppLayout
 
 # Окно для вывода ошибок 
@@ -15,10 +15,9 @@ class ErrorPopUp(QDialog):
             QLabel(f'Ошибка:{message}'),
             
         ])
-        
+        self.setFixedSize(QSize(400, 150))
         
         self.setLayout(main)
-
 
 # Класс генератор ошибок
 class Error():

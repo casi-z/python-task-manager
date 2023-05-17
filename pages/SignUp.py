@@ -4,6 +4,15 @@ from components import User
 from components import Error
 # Qt - Библиотека для интерфейсов
 
+class newWidget(QWidget):
+    def __init__(self):
+        super().__init__()
+        main = AppLayout()
+        main.render([
+            QLabel('Регистрация'),
+
+        ])
+        self.setLayout(main)
 
 class SignUp(QMainWindow):
     
@@ -36,18 +45,19 @@ class SignUp(QMainWindow):
             
         ])
 
-    
-
-        container = QWidget()
+        container = newWidget()
         container.setLayout(main)
 
-        
         self.setCentralWidget(container)
         self.username = None
         self.password = None
-        self.passwordRepeat = None
+        self.password_repeat = None
 
-    
+    def is_form_valid(self):
+        if self.username != None and self.password != None and self.password == self.password_repeat:
+            return False
+        else:
+            return True
 
     def login_handle_change(self, text):
         self.username = text
@@ -56,15 +66,22 @@ class SignUp(QMainWindow):
         self.password = text
 
     def password_repeat_handle_change(self, text):
-        self.passwordRepeat = text
+        self.password_repeat = text
 
     def register_handle_click(self):
+        
+        if self.is_form_valid():
+            invalid_form_error = Error('Некоректный логин или пароль')
+            invalid_form_error.throw()
+            return
         registration = User(self.username, self.password)
-        print(registration.is_user_exist())
+
+       
+
         if registration.is_user_exist() == False:
             print('вы зарегались')
             registration.register()
         else: 
-            error = Error('Такой пользователь уже существует')
-            error.throw()
+            user_exist_error = Error('Такой пользователь уже существует')
+            user_exist_error.throw()
     
