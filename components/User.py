@@ -2,6 +2,7 @@ from data.data import cursor
 # Курсор это функция для принимания sql запросов
 
 # класс user используется для регистрации и запросов в бд
+# прочитайте пж чё такое класс конструктор метод и свойство 
 class User():
     def __init__(self, username, password):
         self.username = username
