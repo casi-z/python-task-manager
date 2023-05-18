@@ -3,6 +3,7 @@ from components import AppLayout
 from components import User
 from components import Error
 from pages import *
+from components import Redirect
 # Qt - Библиотека для интерфейсов
 
 
@@ -63,7 +64,7 @@ class SignIn(QWidget):
             return False
 
     def go_to_register_button_handle_click(self):
-        self.parent().setCentralWidget(SignUp().get_widget()) # Центральный виджет
+        Redirect(self, SignUp) # Центральный виджет
 
 
     def login_handle_change(self, text):
