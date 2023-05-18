@@ -1,6 +1,9 @@
 from PyQt6.QtWidgets import *
 from components import *
 from pages import *
+from pages import *
+
+
 # Qt - Библиотека для интерфейсов
 
 
@@ -62,7 +65,6 @@ class SignIn(QWidget):
 
     def go_to_register_button_handle_click(self):
         Redirect(self, SignUp)
-
 
     def login_handle_change(self, text):
         self.username = text
