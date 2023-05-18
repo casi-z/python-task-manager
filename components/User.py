@@ -11,7 +11,6 @@ class User():
     # Проверяет зарегистрирован ли юзер
     def is_user_exist(self):
         users_table = cursor.execute("""SELECT * FROM users""").fetchall()
-        print(users_table)
         for string in users_table:
             
             if string[1] == self.username and string[2] == self.password:
@@ -23,5 +22,4 @@ class User():
     def register(self):
         cursor.execute(f"""INSERT INTO users(username, password) VALUES ('{self.username}', '{self.password}');""")
         database.commit()
-                
 
