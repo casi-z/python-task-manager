@@ -2,10 +2,11 @@ from PyQt6.QtWidgets import *
 from components import AppLayout
 from components import User
 from components import Error
+from pages import *
 # Qt - Библиотека для интерфейсов
 
 
-class SignUp(QWidget):
+class SignIn(QWidget):
     
     def __init__(self):
 
@@ -14,9 +15,13 @@ class SignUp(QWidget):
         self.widget = self
 
         main = AppLayout()
+        
+        go_to_register_button = QPushButton('Создать аккаунт')
+        go_to_register_button.clicked.connect(self.go_to_register_button_handle_click)
 
-        register_button = QPushButton('Зарегаться')
-        register_button.clicked.connect(self.register_handle_click)
+        login_button = QPushButton('Войти')
+
+        login_button.clicked.connect(self.login_handle_click)
 
         login_input = QLineEdit()
         login_input.textChanged.connect(self.login_handle_change)
@@ -25,20 +30,18 @@ class SignUp(QWidget):
         
         password_input.textChanged.connect(self.password_handle_change)
         
-        password_repeat_input = QLineEdit()
-
-        password_repeat_input.textChanged.connect(self.password_repeat_handle_change)
-
+       
         main.render([
-            QLabel('Регистрация'),
-            QLabel('Придумайте логин'),
+
+            QLabel('Вход'),
+            go_to_register_button,
+            QLabel('Введите логин'),
             login_input,
 
-            QLabel('Придумайте пароль'),
+            QLabel('Введите пароль'),
             password_input,
-            QLabel('Повторите пароль'),
-            QLineEdit(),
-            register_button
+
+            login_button
             
         ])
 
@@ -47,15 +50,21 @@ class SignUp(QWidget):
         
         self.username = None
         self.password = None
-        self.password_repeat = None
+        
+
     def get_widget(self):
         return self.widget
+
     def is_form_valid(self):
 
-        if self.username != None and self.password != None and self.password == self.password_repeat:
+        if self.username != None and self.password != None:
             return True
         else:
             return False
+
+    def go_to_register_button_handle_click(self):
+        self.parent().setCentralWidget(SignUp().get_widget()) # Центральный виджет
+
 
     def login_handle_change(self, text):
         self.username = text
@@ -63,24 +72,23 @@ class SignUp(QWidget):
     def password_handle_change(self, text):
         self.password = text
 
-    def password_repeat_handle_change(self, text):
-        self.password_repeat = text
+    
 
-    def register_handle_click(self):
+    def login_handle_click(self):
         
         if self.is_form_valid() == False:
             invalid_form_error = Error('Некоректный логин или пароль')
             invalid_form_error.throw()
             return
         
-        new_user = User(self.username, self.password)
+        user = User(self.username, self.password)
 
        
 
-        if new_user.is_user_exist() == False:
-            print('вы зарегались')
-            new_user.register()
+        if user.is_user_exist():
+            print('Вход выполнен')
+            
         else: 
-            user_exist_error = Error('Такой пользователь уже существует')
+            user_exist_error = Error('Некоректный логин или пароль')
             user_exist_error.throw()
     

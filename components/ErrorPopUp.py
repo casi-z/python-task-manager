@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import QSize
 from components import AppLayout
+from PyQt6 import QtGui
 
 # Окно для вывода ошибок 
 class ErrorPopUp(QDialog):
@@ -8,7 +9,8 @@ class ErrorPopUp(QDialog):
         super().__init__()
         self.message = message
         self.setWindowTitle("Ошибка")
-
+        
+        self.setWindowIcon(QtGui.QIcon('icons/error.png'))
         main = AppLayout()
 
         main.render([
