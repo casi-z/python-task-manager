@@ -35,7 +35,7 @@ class Register(QWidget):
             QLabel('Придумайте пароль'),
             password_input,
             QLabel('Повторите пароль'),
-            QLineEdit(),
+            password_repeat_input,
             register_button
             
         ])
@@ -66,8 +66,9 @@ class Register(QWidget):
     def register_handle_click(self):
         
         if self.is_form_valid() == False:
-            invalid_form_error = Error('Некоректный логин или пароль')
+            invalid_form_error = Error('Некоректный логин или пароль 1')
             invalid_form_error.throw()
+            print(self.username, self.password, self.password_repeat)
             return
         
         new_user = User(self.username, self.password)
@@ -78,6 +79,6 @@ class Register(QWidget):
             print('вы зарегались')
             new_user.register()
         else: 
-            user_exist_error = Error('Такой пользователь уже существует')
+            user_exist_error = Error('Такой пользователь уже существует 2')
             user_exist_error.throw()
     
