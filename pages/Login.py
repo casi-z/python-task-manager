@@ -81,7 +81,8 @@ class Login(QWidget):
        
 
         if user.is_user_exist():
-            print('Вход выполнен')
+            Redirect(self, Calendar)
+            print('вы вошли')
             
         else: 
             user_exist_error = Error('Некоректный логин или пароль')

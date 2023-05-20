@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import *
-from components import AppLayout
-from components import User
-from components import Error
+from components import *
+
 # Qt - Библиотека для интерфейсов
 
 
@@ -12,6 +11,9 @@ class Register(QWidget):
         super().__init__()
 
         main = AppLayout()
+
+        go_to_login_button = QPushButton('Уже сть аккаунт? Войти')
+        go_to_login_button.clicked.connect(self.go_to_login_handle_click)
 
         register_button = QPushButton('Зарегаться')
         register_button.clicked.connect(self.register_handle_click)
@@ -28,6 +30,7 @@ class Register(QWidget):
         password_repeat_input.textChanged.connect(self.password_repeat_handle_change)
 
         main.render([
+            go_to_login_button,
             QLabel('Регистрация'),
             QLabel('Придумайте логин'),
             login_input,
@@ -53,6 +56,10 @@ class Register(QWidget):
             return True
         else:
             return False
+
+    def go_to_login_handle_click(self):
+        # //Redirect(self, Login)
+        print()
 
     def login_handle_change(self, text):
         self.username = text
