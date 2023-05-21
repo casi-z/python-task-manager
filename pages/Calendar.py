@@ -24,10 +24,11 @@ class Calendar(QWidget):
         print(self.days)
         
         main = AppLayout()
-        day_item = AppLayout()
+        
         day_array = []
+        
         for day in self.days:
-            
+            day_item = AppLayout()
             day_item__number = AppLayout()
             day_item__name = AppLayout()
             
@@ -37,17 +38,12 @@ class Calendar(QWidget):
             day_item__name.render([
                 QLabel(day.name)
             ])
-            day_array.append(
+            day_item.renderLayout([
                 day_item__number,
-                
-            )
-            day_array.append(
-                day_item__name,
-                
-            )
-
-        day_item.render(day_array)
-
-        main.render([day_item])
+                day_item__name
+            ])
+            
+            main.renderLayout([day_item])
+        
 
         self.setLayout(main)

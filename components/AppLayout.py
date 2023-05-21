@@ -9,3 +9,7 @@ class AppLayout(QVBoxLayout):
     def render(self, elements):
         for elements in elements:
             self.addWidget(elements)
+
+    def renderLayout(self, elements):
+        for elements in elements:
+            self.addLayout(elements)
