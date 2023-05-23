@@ -43,7 +43,7 @@ class Day:
         
         
     def is_today(self):
-        print(self.month)
+        
         if datetime.now().day == self.number and datetime.now().month == self.month and self.year == datetime.now().year:
             return True
         return False

@@ -1,8 +1,14 @@
-from PyQt6.QtWidgets import *
-from PyQt6 import QtGui
+from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
+from pages import Login, Calendar
 class MainWindow(QMainWindow):
+    
     def __init__(self, page):
         super().__init__()
-        container = page
         self.setWindowIcon(QtGui.QIcon('icons/icon.png'))
-        self.setCentralWidget(container)
+        self.ui = page(self)
+       
+        self.setWindowTitle('self.ui.title')
+    # метод не работает
+    def redirect(self, target):
+        self.ui = eval(target)(self)

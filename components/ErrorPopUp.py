@@ -1,7 +1,7 @@
-from PyQt6.QtWidgets import *
-from PyQt6.QtCore import QSize
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QSize
 from components import AppLayout
-from PyQt6 import QtGui
+from PyQt5 import QtGui
 
 # Окно для вывода ошибок 
 class ErrorPopUp(QDialog):
