@@ -9,6 +9,6 @@ class MainWindow(QMainWindow):
         self.ui = page(self)
        
         self.setWindowTitle('self.ui.title')
-    # метод не работает
+    
     def redirect(self, target):
         self.ui = eval(target)(self)
