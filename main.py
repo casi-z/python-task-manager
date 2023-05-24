@@ -23,3 +23,4 @@ def main():
 if __name__ == '__main__':
     main()
 # python -m PyQt5.uic.pyuic -x calendar-day.ui -o calendar-day.py
+# бля
