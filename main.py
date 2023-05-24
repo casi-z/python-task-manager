@@ -22,4 +22,9 @@ def main():
 # Димон если читаешь это поставь сюда точку
 if __name__ == '__main__':
     main()
+<<<<<<< HEAD
 # python -m PyQt5.uic.pyuic -x zakladki.ui -o zakladki.py
+=======
+# python -m PyQt5.uic.pyuic -x calendar-day.ui -o calendar-day.py
+# бля
+>>>>>>> a37f30b6691dd5fcc493d31162d52509eaf277e2
