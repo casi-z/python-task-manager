@@ -165,31 +165,31 @@ class Register(QWidget):
         print()
 
     def login_handle_change(self, text):
-        self.username = text
+        self.username = text.replace(' ', '')
 
     def password_handle_change(self, text):
-        self.password = text
+        self.password = text.replace(' ', '')
         
 
     def password_repeat_handle_change(self, text):
-        self.password_repeat = text
+        self.password_repeat = text.replace(' ', '')
 
     def register_handle_click(self):
-        self.window.redirect('Login')
-        # if self.is_form_valid() == False:
-        #     invalid_form_error = Error('Некоректный логин или пароль 1')
-        #     invalid_form_error.throw()
-        #     print(self.username, self.password, self.password_repeat)
-        #     return
         
-        # new_user = User(self.username, self.password)
+        if self.is_form_valid() == False:
+            invalid_form_error = Error('Некоректный логин или пароль 1')
+            invalid_form_error.throw()
+            
+            return
+        
+        new_user = User(self.username, self.password)
 
        
 
-        # if new_user.is_user_exist() == False:
-        #     print('вы зарегались')
-        #     new_user.register()
-        # else: 
-        #     user_exist_error = Error('Такой пользователь уже существует 2')
-        #     user_exist_error.throw()
+        if new_user.is_user_exist() == False:
+            print('вы зарегались')
+            new_user.register()
+        else: 
+            user_exist_error = Error('Такой пользователь уже существует 2')
+            user_exist_error.throw()
     

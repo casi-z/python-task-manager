@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
-from pages import Login, Calendar
+from pages import Login, Calendar, Register
 class MainWindow(QMainWindow):
     
     def __init__(self, page):

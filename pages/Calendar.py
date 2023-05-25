@@ -10,6 +10,23 @@ class Calendar():
 
         super().__init__()
        
+
+        self.month_list = [
+            {'color': 'red', 'name': 'январь'},
+            {'color': 'red', 'name': 'февраль'},
+            {'color': 'green', 'name': 'март'},
+            {'color': 'red', 'name': 'апрель'},
+            {'color': 'red', 'name': 'май'},
+            {'color': 'red', 'name': 'июнь'},
+            {'color': 'red', 'name': 'июль'},
+            {'color': 'red', 'name': 'август'},
+            {'color': 'red', 'name': 'сентябрь'},
+            {'color': 'red', 'name': 'октябрь'},
+            {'color': 'red', 'name': 'ноябрь'},
+            {'color': 'red', 'name': 'декабрь'},
+        ]
+        
+
         window.setObjectName("MainWindow")
         window.resize(792, 600)
         self.centralwidget = QtWidgets.QWidget(window)
@@ -19,42 +36,11 @@ class Calendar():
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
-        self.month_button = QtWidgets.QPushButton(self.tab)
-        self.month_button.setGeometry(QtCore.QRect(40, 30, 81, 71))
-        font = QtGui.QFont()
-        font.setFamily("Georgia")
-        font.setPointSize(12)
-        self.month_button.setFont(font)
-        self.month_button.setStyleSheet("QPushButton{\n"
-"    border-radius:20px;\n"
-"    background-color:#476DD5;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"    background-color:rgb(44, 90, 255);\n"
-"}")
-        self.month_button.setObjectName("month_button")
-
-        self.month_button_2 = QtWidgets.QPushButton(self.tab)
-        self.month_button_2.setGeometry(QtCore.QRect(140, 30, 81, 71))
-        font = QtGui.QFont()
-        font.setFamily("Georgia")
-        font.setPointSize(12)
-        self.month_button_2.setFont(font)
-        self.month_button_2.setStyleSheet("QPushButton{\n"
-"    border-radius:20px;\n"
-"    background-color:#476DD5;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"    background-color:rgb(44, 90, 255);\n"
-"}")
-        self.month_button_2.setObjectName("month_button_2")
-
-        for i in range(12):
-
-            eval(f"""self.month_button{i} = QtWidgets.QPushButton(self.tab)\nself.month_button{str(i)}.setGeometry(QtCore.QRect(240, 30, 81, 71))\nfont = QtGui.QFont()\nfont.setFamily("Georgia")\nfont.setPointSize(12)\nself.month_button{str(i)}.setFont(font)\nself.month_button{str(i)}.setObjectName("month_button{str(i)}")\nself.month_button{str(i)}.setText("ЯНВАРЬ")""".replace('|', '{').replace('||', '}'))
         
+
+        self.layout = QtWidgets.QHBoxLayout(self.tab)
+
+       
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -71,11 +57,33 @@ class Calendar():
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(window)
         
+
+        for i in self.month_list:
+            
+            button = QtWidgets.QPushButton(f"{i['name']}")
+            
+            font = QtGui.QFont()
+            font.setFamily("Georgia")
+            font.setPointSize(12)
+            button.setMinimumSize(60, 40)
+            button.setFont(font)
+            button.setStyleSheet("QPushButton{\n"
+    "    border-radius:20px;\n"
+    f"    background-color:{i['color']};\n"
+    "}\n"
+    "\n"
+    "QPushButton:hover{\n"
+    "    background-color:rgb(44, 90, 255);\n"
+    "}")
+            button.setObjectName(f"month_button_{i}")
+            self.layout.addWidget(button)
+
+
+
     def retranslateUi(self, window):
         _translate = QtCore.QCoreApplication.translate
         window.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.month_button.setText(_translate("MainWindow", "ЯНВАРЬ"))
-        self.month_button_2.setText(_translate("MainWindow", "ЯНВАРЬ"))
+        
         
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Календарь"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Список задач"))

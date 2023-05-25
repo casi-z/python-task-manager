@@ -11,6 +11,9 @@ from pages import Register
 class Login():
     
     def __init__(self, window):
+        self.username = None
+        self.password = None
+
         self.window = window
         window.setObjectName("Form")
         window.resize(400, 444)
@@ -69,6 +72,7 @@ class Login():
         self.login_input.textChanged.connect(self.login_handle_change)
         self.password_input.textChanged.connect(self.password_handle_change)
         self.login_button.clicked.connect(self.login_handle_click)
+        self.go_to_register_button.clicked.connect(self.go_to_register_button_handle_click)
 
 
 
@@ -96,15 +100,15 @@ class Login():
 
 
     def login_handle_change(self, text):
-        self.username = text
+        self.username = text.replace(' ', '')
 
     def password_handle_change(self, text):
-        self.password = text
+        self.password = text.replace(' ', '')
 
     
 
     def login_handle_click(self):
-        print('блять')
+        
         if self.is_form_valid() == False:
             invalid_form_error = Error('Некоректный логин или пароль')
             invalid_form_error.throw()

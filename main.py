@@ -10,7 +10,7 @@ def main():
     login_page = Login
     calendar_page = Calendar
     # Создаём главное окно
-    window = MainWindow(login_page)  # Здесь заменил Login_page на Login_page
+    window = MainWindow(login_page)
     window.show()
 
     # запускаем прогу
@@ -22,4 +22,6 @@ def main():
 # Димон если читаешь это поставь сюда точку
 if __name__ == '__main__':
     main()
-# python -m PyQt5.uic.pyuic -x zakladki.ui -o zakladki.py
+
+# команда из ui в py переводит
+# python -m PyQt5.uic.pyuic -x error.ui -o error.py
