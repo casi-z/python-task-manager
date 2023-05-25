@@ -96,7 +96,7 @@ class Login():
             return False
 
     def go_to_register_button_handle_click(self):
-        self.window.redirect('Register')
+        self.window.redirect('Register(self)')
 
 
     def login_handle_change(self, text):
@@ -119,7 +119,8 @@ class Login():
        
 
         if user.is_user_exist():
-            self.window.redirect('Calendar')
+            # редирект 
+            self.window.redirect(f'Calendar_Month(self)')
             print('вы вошли')
             
         else: 

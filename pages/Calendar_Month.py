@@ -4,7 +4,7 @@ from pages import *
 
 
 
-class Calendar():
+class Calendar_Month():
 
     def __init__(self, window):
 
@@ -12,18 +12,18 @@ class Calendar():
        
 
         self.month_list = [
-            {'color': 'red', 'name': 'январь'},
-            {'color': 'red', 'name': 'февраль'},
-            {'color': 'green', 'name': 'март'},
-            {'color': 'red', 'name': 'апрель'},
-            {'color': 'red', 'name': 'май'},
-            {'color': 'red', 'name': 'июнь'},
-            {'color': 'red', 'name': 'июль'},
+            {'color': 'blue', 'name': 'январь'},
+            {'color': 'violet', 'name': 'февраль'},
+            {'color': 'red', 'name': 'март'},
+            {'color': 'green', 'name': 'апрель'},
+            {'color': '#B2FF18', 'name': 'май'},
+            {'color': 'yellow', 'name': 'июнь'},
+            {'color': 'orange', 'name': 'июль'},
             {'color': 'red', 'name': 'август'},
-            {'color': 'red', 'name': 'сентябрь'},
-            {'color': 'red', 'name': 'октябрь'},
-            {'color': 'red', 'name': 'ноябрь'},
-            {'color': 'red', 'name': 'декабрь'},
+            {'color': '#FF1833', 'name': 'сентябрь'},
+            {'color': '#FF18B4', 'name': 'октябрь'},
+            {'color': '#1888FF', 'name': 'ноябрь'},
+            {'color': '#1842FF', 'name': 'декабрь'},
         ]
         
 
@@ -39,6 +39,7 @@ class Calendar():
         
 
         self.layout = QtWidgets.QHBoxLayout(self.tab)
+        self.layout_2 = QtWidgets.QHBoxLayout(self.tab)
 
        
         self.tabWidget.addTab(self.tab, "")
@@ -59,6 +60,7 @@ class Calendar():
         
 
         for i in self.month_list:
+            month_index = self.month_list.index(i)
             
             button = QtWidgets.QPushButton(f"{i['name']}")
             
@@ -76,6 +78,7 @@ class Calendar():
     "    background-color:rgb(44, 90, 255);\n"
     "}")
             button.setObjectName(f"month_button_{i}")
+            
             self.layout.addWidget(button)
 
 

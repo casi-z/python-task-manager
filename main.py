@@ -8,7 +8,7 @@ def main():
     app = QApplication(sys.argv)
     register_page = Register
     login_page = Login
-    calendar_page = Calendar
+    calendar_page = Calendar_Month
     # Создаём главное окно
     window = MainWindow(login_page)
     window.show()
