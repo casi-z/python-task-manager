@@ -6,13 +6,9 @@ import sys
 # Главная функция программы
 def main():
     app = QApplication(sys.argv)
-    register_page = Register
-    login_page = Login
-    calendar_page = Calendar_Month
-    # Создаём главное окно
-    window = MainWindow(login_page)
-    window.show()
-
+    widget = QStackedWidget()
+    login = Login()
+    widget.addWidget(login)
     # запускаем прогу
     app.exec()
 

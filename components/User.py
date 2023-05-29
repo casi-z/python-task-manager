@@ -9,17 +9,22 @@ class User():
         self.password = password
     
     # Проверяет зарегистрирован ли юзер
+    
     def is_user_exist(self):
         users_table = cursor.execute("""SELECT * FROM users""").fetchall()
+        self.result = False
         for string in users_table:
             
             if string[1] == self.username and string[2] == self.password:
-                return True
-            else:
-                return False
-    
+                self.result = True
+
+        return self.result
+            
     # Добавляем юзера в базу данных
     def register(self):
-        cursor.execute(f"""INSERT INTO users(username, password) VALUES ('{self.username}', '{self.password}');""")
+        users_table = cursor.execute("""SELECT * FROM users""").fetchall()
+        last_id = users_table[-1][0]
+        
+        cursor.execute(f"""INSERT INTO users(id, username, password) VALUES ({last_id + 1},'{self.username}', '{self.password}');""")
         database.commit()
 

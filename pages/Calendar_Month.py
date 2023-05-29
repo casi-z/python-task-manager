@@ -7,7 +7,7 @@ from pages import *
 class Calendar_Month():
 
     def __init__(self, window):
-
+        self.window = window
         super().__init__()
        
 
@@ -39,9 +39,7 @@ class Calendar_Month():
         
 
         self.layout = QtWidgets.QHBoxLayout(self.tab)
-        self.layout_2 = QtWidgets.QHBoxLayout(self.tab)
-
-       
+        
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -63,7 +61,6 @@ class Calendar_Month():
             month_index = self.month_list.index(i)
             
             button = QtWidgets.QPushButton(f"{i['name']}")
-            
             font = QtGui.QFont()
             font.setFamily("Georgia")
             font.setPointSize(12)
@@ -81,7 +78,13 @@ class Calendar_Month():
             
             self.layout.addWidget(button)
 
+            
 
+            button.clicked.connect(lambda ch, btn=button :self.month_handle_click(btn))
+            
+                
+    def month_handle_click(self, b):
+        self.window.redirect("Calendar_Days(self)")
 
     def retranslateUi(self, window):
         _translate = QtCore.QCoreApplication.translate

@@ -1,73 +1,29 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        window.setObjectName("Form")
-        window.resize(400, 444)
-        window.setStyleSheet("background: white;")
-        self.label = QtWidgets.QLabel(window)
-        self.label.setGeometry(QtCore.QRect(150, 20, 101, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(30)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
-        self.login_input = QtWidgets.QLineEdit(window)
-        self.login_input.setGeometry(QtCore.QRect(20, 130, 351, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(16)
-        self.login_input.setFont(font)
-        self.login_input.setStyleSheet("background:#E0F8FF;\n"
-"border-radius:20%;\n"
-"color: rgba(0, 0, 0, 0.7);")
-        self.login_input.setObjectName("login_input")
-        self.password_input = QtWidgets.QLineEdit(window)
-        self.password_input.setGeometry(QtCore.QRect(20, 220, 351, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(16)
-        self.password_input.setFont(font)
-        self.password_input.setStyleSheet("background:#E0F8FF;\n"
-"border-radius:20%;\n"
-"color: rgba(0, 0, 0, 0.7);")
-        self.password_input.setObjectName("password_input")
-        self.login_button = QtWidgets.QPushButton(window)
-        self.login_button.setGeometry(QtCore.QRect(110, 350, 181, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        self.login_button.setFont(font)
-        self.login_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.login_button.setStyleSheet("background: #8EDCFE;\n"
-"border-radius: 20%;")
-        self.login_button.setObjectName("login_button")
-        self.go_to_register_button = QtWidgets.QPushButton(window)
-        self.go_to_register_button.setGeometry(QtCore.QRect(60, 410, 281, 23))
-        self.go_to_register_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.go_to_register_button.setStyleSheet("background: none;\n"
-"border: none;\n"
-"color: blue;")
-        self.go_to_register_button.setObjectName("go_to_register_button")
+class TaskList(QWidget):
+    def __init__(self):
+        super().__init__()
 
-        self.retranslateUi(window)
-        QtCore.QMetaObject.connectSlotsByName(window)
+        self.task_list = QListWidget(self)
 
-    def retranslateUi(self, window):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "Вход"))
-        self.login_input.setText(_translate("Form", " Логин"))
-        self.password_input.setText(_translate("Form", " Пароль"))
-        self.login_button.setText(_translate("Form", "Войти"))
-        self.go_to_register_button.setText(_translate("Form", "Еще не зарегистрированны? Создать аккаунт"))
+        layout = QVBoxLayout()
+        layout.addWidget(self.task_list)
+        button = QPushButton('layout')
+        layout.addWidget(button)
 
+        self.setLayout(layout)
+        self.n = 0
+        button.clicked.connect(lambda: self.add_task(f'хуй{self.n}'))
+        self.n = self.n+1
+    def add_task(self, task_name):
+        task_item = QListWidgetItem(task_name)
+        self.task_list.addItem(task_item)
+        self.n = self.n+1
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    window = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(window)
-    window.show()
-    sys.exit(app.exec_())
+if __name__ == '__main__':
+    app = QApplication([])
+    task_list = TaskList()
+    task_list.add_task('Do laundry')
+    task_list.add_task('Buy groceries')
+    task_list.show()
+    app.exec_()
