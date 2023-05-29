@@ -22,6 +22,6 @@ def main():
 # Димон если читаешь это поставь сюда точку
 if __name__ == '__main__':
     main()
-
+# блять
 # команда из ui в py переводит
 # python -m PyQt5.uic.pyuic -x error.ui -o error.py
