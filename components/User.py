@@ -34,12 +34,12 @@ class User():
             user_info = json.loads(cookie_file.read())
             self.username = user_info['username']
             self.password = user_info['password']
-            print(self.username)
+            
 
 
     def register(self):
         users_table = cursor.execute("""SELECT * FROM users""").fetchall()
-        last_user_id = users_table[-1][0]
+        last_user_id = users_table[-1][0] if len(users_table) > 0 else 0
         
         cursor.execute(f"""INSERT INTO users(id, username, password) VALUES ({last_user_id + 1},'{self.username}', '{self.password}');""")
         database.commit()
@@ -51,3 +51,9 @@ class User():
             self.task_list.append(task[2])
         return self.task_list
     
+    def add_task(self, task_name):
+        self.task_table = cursor.execute(f"""SELECT * FROM tasks WHERE username == '{self.username}'""").fetchall()
+        last_task_id = self.task_table[-1][0] if len(self.task_table) > 0 else 0
+        
+        cursor.execute(f"""INSERT INTO tasks(username, name) VALUES ('{self.username}', '{task_name}');""")
+        database.commit()

@@ -45,17 +45,20 @@ class Tasks(QWidget):
         # Вызываю метод по клику на кнопку
         # Передаю аргументом введённый текст
         self.addButton.clicked.connect(lambda: self.add_task(self.textEdit.toPlainText()))
-        user = User('','')
-        user.read_cookie()
-        self.task_list = user.load_tasks()
+        self.user = User('','')
+        self.user.read_cookie()
+        self.task_list = self.user.load_tasks()
+
         for task in self.task_list:
             task_item = QListWidgetItem(task)
             self.task_container.addItem(task_item)
+
     def add_task(self, task_name):
    
         task_item = QListWidgetItem(task_name)
         if not task_name in self.task_list:
-            self.task_list.append(task_name)
+            
+            self.user.add_task(task_name)
             self.task_container.addItem(task_item)
         else:
             task_exist_error = Error('Нельзя добавлять две одинаковые задачи')

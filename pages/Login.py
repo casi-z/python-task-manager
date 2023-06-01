@@ -119,10 +119,11 @@ class Login():
        
 
         if user.is_user_exist():
-            # редирект 
-            self.window.redirect(f'Calendar_Month(self)')
+            # редирект
             user.create_cookie()
-            user.read_cookie()
+            self.window.redirect(f'Calendar_Month(self)')
+            
+            
             
         else: 
             user_exist_error = Error('Некоректный логин или пароль')
