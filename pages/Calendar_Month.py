@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from components import *
 from pages import *
-
+from components import Tasks
 
 
 class Calendar_Month():
@@ -41,10 +41,12 @@ class Calendar_Month():
         self.layout = QtWidgets.QHBoxLayout(self.tab)
         self.layout_2 = QtWidgets.QHBoxLayout(self.tab)
 
+        
        
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
+        self.tab_2_item = Tasks(self.tab_2)
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
@@ -92,34 +94,3 @@ class Calendar_Month():
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Список задач"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Отчет"))
 
-
-
-
-        # self.month = Month(datetime.now().month, datetime.now().year)
-        # self.days = self.month.get_days()
-       
-        
-        # main = AppLayout()
-        
-        # day_array = []
-        
-        # for day in self.days:
-        #     day_item = AppLayout()
-        #     day_item__number = AppLayout()
-        #     day_item__name = AppLayout()
-            
-        #     day_item__number.render([
-        #         QLabel(str(day.number))
-        #     ])
-        #     day_item__name.render([
-        #         QLabel(day.name)
-        #     ])
-        #     day_item.renderLayout([
-        #         day_item__number,
-        #         day_item__name
-        #     ])
-            
-        #     main.renderLayout([day_item])
-        
-
-        # self.setLayout(main)
