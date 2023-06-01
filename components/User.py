@@ -1,5 +1,9 @@
-from data.data import cursor, database
+# from data.data import cursor, database
 import json
+import sqlite3 as sql
+#  подключаемся в базу данных
+database = sql.connect('data/database.db')
+cursor = database.cursor()
 # Курсор это функция для принимания sql запросов
 
 # класс user используется для регистрации и запросов в бд
@@ -32,12 +36,18 @@ class User():
             self.password = user_info['password']
             print(self.username)
 
+
     def register(self):
         users_table = cursor.execute("""SELECT * FROM users""").fetchall()
-        last_id = users_table[-1][0]
+        last_user_id = users_table[-1][0]
         
-        cursor.execute(f"""INSERT INTO users(id, username, password) VALUES ({last_id + 1},'{self.username}', '{self.password}');""")
+        cursor.execute(f"""INSERT INTO users(id, username, password) VALUES ({last_user_id + 1},'{self.username}', '{self.password}');""")
         database.commit()
 
-n = User('','')
-n.read_cookie()
+    def load_tasks(self):
+        self.task_table = cursor.execute(f"""SELECT * FROM tasks WHERE username == '{self.username}'""").fetchall()
+        self.task_list = []
+        for task in self.task_table:
+            self.task_list.append(task[2])
+        return self.task_list
+    

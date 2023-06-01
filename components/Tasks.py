@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-from components import Error
+from components import Error, User
 class Tasks(QWidget):
     def __init__(self, Form):
         super().__init__()
@@ -45,8 +45,9 @@ class Tasks(QWidget):
         # Вызываю метод по клику на кнопку
         # Передаю аргументом введённый текст
         self.addButton.clicked.connect(lambda: self.add_task(self.textEdit.toPlainText()))
-       
-        self.task_list = []
+        user = User('','')
+        user.read_cookie()
+        self.task_list = user.load_tasks()
         for task in self.task_list:
             task_item = QListWidgetItem(task)
             self.task_container.addItem(task_item)

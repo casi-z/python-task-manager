@@ -6,9 +6,10 @@ import sys
 # Главная функция программы
 def main():
     app = QApplication(sys.argv)
-    widget = QStackedWidget()
-    login = Login()
-    widget.addWidget(login)
+    
+    login = Login
+    window = MainWindow(login)
+    window.show()
     # запускаем прогу
     app.exec()
 
