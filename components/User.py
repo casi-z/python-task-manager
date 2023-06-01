@@ -10,6 +10,7 @@ class User():
         self.password = password
         self.users_table = cursor.execute("""SELECT * FROM users""").fetchall()
     # Проверяет зарегистрирован ли юзер
+    
     def is_user_exist(self):
         
 
@@ -31,9 +32,11 @@ class User():
             self.password = user_info['password']
             print(self.username)
 
-    # Добавляем юзера в базу данных
     def register(self):
-        cursor.execute(f"""INSERT INTO users(username, password) VALUES ('{self.username}', '{self.password}');""")
+        users_table = cursor.execute("""SELECT * FROM users""").fetchall()
+        last_id = users_table[-1][0]
+        
+        cursor.execute(f"""INSERT INTO users(id, username, password) VALUES ({last_id + 1},'{self.username}', '{self.password}');""")
         database.commit()
 
 n = User('','')

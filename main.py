@@ -6,13 +6,9 @@ import sys
 # Главная функция программы
 def main():
     app = QApplication(sys.argv)
-    register_page = Register
-    login_page = Login
-    calendar_page = Calendar_Month
-    # Создаём главное окно
-    window = MainWindow(login_page)
-    window.show()
-
+    widget = QStackedWidget()
+    login = Login()
+    widget.addWidget(login)
     # запускаем прогу
     app.exec()
 
@@ -22,6 +18,5 @@ def main():
 # Димон если читаешь это поставь сюда точку
 if __name__ == '__main__':
     main()
-# блять
 # команда из ui в py переводит
-# python -m PyQt5.uic.pyuic -x error.ui -o error.py
+# python -m PyQt5.uic.pyuic -x Tasks.ui -o Tasks.py
