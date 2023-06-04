@@ -5,4 +5,4 @@ from components.ErrorPopUp import Error
 from components.Redirect import Redirect
 from components.Month import Month
 from components.Day import Day
-from components.Tasks import *
+from layouts.Tasks import *

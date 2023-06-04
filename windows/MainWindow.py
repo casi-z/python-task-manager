@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
-from pages import Login, Calendar_Month, Register, Calendar_Days
+from pages import Login, Register, StartPage
 
 class MainWindow(QMainWindow):
     

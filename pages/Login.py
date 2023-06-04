@@ -121,7 +121,7 @@ class Login():
         if user.is_user_exist():
             # редирект
             user.create_cookie()
-            self.window.redirect(f'Calendar_Month(self)')
+            self.window.redirect(f'StartPage(self)')
             
             
             
