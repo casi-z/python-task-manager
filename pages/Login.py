@@ -3,7 +3,6 @@ from components import AppLayout
 from components import User
 from components import Error
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-from components import Redirect
 from pages import Register
 # Qt - Библиотека для интерфейсов
 
@@ -13,7 +12,7 @@ class Login():
     def __init__(self, window):
         self.username = None
         self.password = None
-
+        window.setWindowTitle('Вход')
         self.window = window
         window.setObjectName("Form")
         window.resize(400, 444)
@@ -67,7 +66,8 @@ class Login():
         QtCore.QMetaObject.connectSlotsByName(window)
 
 
-
+        self.login_input.setPlaceholderText('Логин')
+        self.password_input.setPlaceholderText('Пароль')
 
         self.login_input.textChanged.connect(self.login_handle_change)
         self.password_input.textChanged.connect(self.password_handle_change)
@@ -81,8 +81,7 @@ class Login():
         _translate = QtCore.QCoreApplication.translate
         window.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "Вход"))
-        self.login_input.setText(_translate("Form", " Логин"))
-        self.password_input.setText(_translate("Form", " Пароль"))
+
         self.login_button.setText(_translate("Form", "Войти"))
         self.go_to_register_button.setText(_translate("Form", "Еще не зарегистрированны? Создать аккаунт"))
 

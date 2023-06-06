@@ -1,76 +1,94 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-from components import Error, User
+from components import Error, User, Task
+from PyQt5.QtCore import Qt
 class Tasks(QWidget):
     def __init__(self, Form):
         super().__init__()
-        
-        Form.setObjectName("Form")
-        Form.resize(400, 452)
-        Form.setStyleSheet("")
-        self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(120, 20, 171, 41))
+        self.setWindowTitle("Todo List")
+
+        layout = QVBoxLayout(Form)
+
+        self.listWidget = QListWidget()
+
+        layout.addWidget(self.listWidget)
+
+         
+        self.addButton = QPushButton("Добавить")
+        self.addButton.setGeometry(QtCore.QRect(80, 140, 221, 41))
         font = QtGui.QFont()
-        font.setFamily("Georgia")
+        font.setFamily("MV Boli")
         font.setPointSize(16)
-        self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label.setObjectName("label")
-        self.textEdit = QtWidgets.QTextEdit(Form)
-        self.textEdit.setGeometry(QtCore.QRect(30, 360, 341, 41))
-        self.textEdit.setObjectName("textEdit")
-        self.addButton = QtWidgets.QPushButton(Form)
-        self.addButton.setGeometry(QtCore.QRect(130, 410, 131, 31))
-        font = QtGui.QFont()
-        font.setFamily("Georgia")
         self.addButton.setFont(font)
-        self.addButton.setStyleSheet("QPushButton {\n"
-"    border-radius: 10px;\n"
-"    background-color: #8EDCFE\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"    background-color: rgb(0, 255, 255)\n"
-"}")
-        self.addButton.setObjectName("pushButton")
-        self.task_container = QtWidgets.QListWidget(Form)
-        self.task_container.setGeometry(QtCore.QRect(25, 61, 351, 291))
-        self.task_container.setObjectName("listWidget")
-        
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.addButton.setStyleSheet("border-radius: 20%;\n"
+"background-color: rgb(89, 211, 255);\n"
+"color:#ffffffff;")
+        self.addButton.setObjectName("addButton")
+        self.addButton.clicked.connect(self.addTask)
 
+        self.clearButton = QPushButton("Выполнить")
+        self.clearButton.clicked.connect(self.clearCompletedTasks)
+        
+        self.clearButton.setGeometry(QtCore.QRect(80, 140, 221, 41))
+        font = QtGui.QFont()
+        font.setFamily("MV Boli")
+        font.setPointSize(16)
+        self.clearButton.setFont(font)
+        self.clearButton.setStyleSheet("border-radius: 20%;\n"
+"background-color: rgb(255, 17, 21);\n"
+"color:#ffffffff;")
+        self.clearButton.setObjectName("addButton")
         
 
-        # Вызываю метод по клику на кнопку
-        # Передаю аргументом введённый текст
-        self.addButton.clicked.connect(lambda: self.add_task(self.textEdit.toPlainText()))
+        horizontalLayout = QHBoxLayout()
+        horizontalLayout.addWidget(self.addButton)
+        horizontalLayout.addWidget(self.clearButton)
+
+        layout.addLayout(horizontalLayout)
+
+        self.label = QLabel()
+        self.label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.label)
+
+        Form.setLayout(layout)
+
         self.user = User('','')
         self.user.read_cookie()
         self.task_list = self.user.load_tasks()
 
         for task in self.task_list:
-            task_item = QListWidgetItem(task)
-            self.task_container.addItem(task_item)
+            item = QListWidgetItem(task, self.listWidget)
+            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            item.setCheckState(Qt.Unchecked)
+    def addTask(self):
+        text, ok = QInputDialog.getText(self, 'Новая задача', 'Что вы хотите сделать:')
 
-    def add_task(self, task_name):
-   
-        task_item = QListWidgetItem(task_name)
-        if not task_name in self.task_list:
+        if ok and text and not text in self.task_list:
+            item = QListWidgetItem(text, self.listWidget)
+            item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+            item.setCheckState(Qt.Unchecked)
+            # Добавляем в БД
+
+            self.user.add_task(text)
             
-            self.user.add_task(task_name)
-            self.task_container.addItem(task_item)
         else:
             task_exist_error = Error('Нельзя добавлять две одинаковые задачи')
             task_exist_error.throw()
 
+    def clearCompletedTasks(self):
+        for i in reversed(range(self.listWidget.count())):
+            if self.listWidget.item(i).checkState() == Qt.Checked:
+                deleted_item = self.listWidget.takeItem(i)
+                self.user.delete_task(deleted_item.text())
+                self.user.create_report(deleted_item.text())
 
+    def updateLabel(self):
+        count = self.listWidget.count()
+        checkedCount = sum(self.listWidget.item(i).checkState() == Qt.Checked for i in range(count))
 
-    def retranslateUi(self, Form):
-        _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.label.setText(_translate("Form", "СПИСОК ЗАДАЧ"))
-        self.addButton.setText(_translate("Form", "Добавить задачу"))
+        self.label.setText(f"{checkedCount}/{count} tasks completed")
+        
+    
 
 
 

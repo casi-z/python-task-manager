@@ -20,4 +20,4 @@ def main():
 if __name__ == '__main__':
     main()
 # команда из ui в py переводит
-# python -m PyQt5.uic.pyuic -x calendar.ui -o calendar.py
+# python -m PyQt5.uic.pyuic -x Tasks.ui -o Tasks.py

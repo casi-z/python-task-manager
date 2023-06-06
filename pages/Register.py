@@ -12,11 +12,12 @@ class Register(QWidget):
 
         super().__init__()
         self.window = window
-        self.title = 'Регистрация'
+        
+        window.setWindowTitle('Регистрация')
         self.username = None
         self.password = None
         self.password_repeat = None
-        # Redirect(self, Login)
+        
         window.setObjectName("Register")
         window.resize(426, 486)
         palette = QtGui.QPalette()
@@ -136,6 +137,9 @@ class Register(QWidget):
         self.retranslateUi(window)
         QtCore.QMetaObject.connectSlotsByName(window)
 
+        self.login_input.setPlaceholderText('Придумайте логин')
+        self.password_input.setPlaceholderText('Придумайте пароль')
+        self.password_repeat_input.setPlaceholderText('Повторите пароль')
 
         # пошли хендлеры
         self.login_input.textChanged.connect(self.login_handle_change)
@@ -149,9 +153,7 @@ class Register(QWidget):
         window.setWindowTitle(_translate("Register", "MainWindow"))
         self.label.setText(_translate("Register", "Регистрация"))
         self.register_button.setText(_translate("Register", "Зарегаться"))
-        self.password_repeat_input.setText(_translate("Register", "Повторите пароль"))
-        self.password_input.setText(_translate("Register", "Пароль"))
-        self.login_input.setText(_translate("Register", "Придумайте логин"))
+       
 
     def is_form_valid(self):
 
@@ -189,6 +191,8 @@ class Register(QWidget):
         if new_user.is_user_exist() == False:
             print('вы зарегались')
             new_user.register()
+            new_user.create_cookie()
+            self.window.redirect(f'StartPage(self)')
         else: 
             user_exist_error = Error('Такой пользователь уже существует 2')
             user_exist_error.throw()

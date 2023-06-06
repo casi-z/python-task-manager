@@ -7,9 +7,9 @@ class MainWindow(QMainWindow):
     def __init__(self, page):
         super().__init__()
         self.setWindowIcon(QtGui.QIcon('icons/icon.png'))
-        
+        self.setWindowTitle('Вход')
         self.ui = page(self)
-        self.setWindowTitle('self.ui.title')
+        
     
     def redirect(self, target):
         self.ui = eval(target)

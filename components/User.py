@@ -1,6 +1,7 @@
 from data.data import cursor, database
+import datetime
 import json
-import sqlite3 as sql
+
 #  подключаемся в базу данных
 
 # Курсор это функция для принимания sql запросов
@@ -63,3 +64,20 @@ class User():
         
         cursor.execute(f"""INSERT INTO tasks(username, name) VALUES ('{self.username}', '{task_name}');""")
         database.commit()
+    
+    def delete_task(self, task_name):
+        cursor.execute(f"""DELETE FROM tasks WHERE name == '{task_name}' AND username == '{self.username}'""")
+        database.commit()
+
+    def load_reports(self):
+        self.reports_table = cursor.execute(f"""SELECT * FROM reports WHERE username == '{self.username}'""").fetchall()
+        self.reports_list = []
+        for reports in self.reports_table:
+            self.reports_list.append({'name':reports[2], 'date':reports[1]})
+
+        return self.reports_list
+
+    def create_report(self, report_name):
+        cursor.execute(f"""INSERT INTO reports(finish_date, name, username) VALUES ('{datetime.datetime.now().day}-{datetime.datetime.now().month}-{datetime.datetime.now().year}', '{report_name}', '{self.username}')""")
+        database.commit()
+print()

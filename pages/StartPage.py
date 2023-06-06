@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets
 from components import *
 from pages import *
-from layouts import Tasks, Calendar
+from layouts import *
 
 
 class StartPage():
@@ -17,6 +17,7 @@ class StartPage():
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 800, 620))
         self.tabWidget.setObjectName("tabWidget")
+
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.calendar = Calendar(self.tab)
@@ -26,9 +27,13 @@ class StartPage():
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.tasks = Tasks(self.tab_2)
+        
+
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
+        self.report = Report(self.tab_3)
+
         self.tabWidget.addTab(self.tab_3, "")
         window.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(window)
@@ -38,7 +43,7 @@ class StartPage():
         self.retranslateUi(window)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(window)
-        
+        window.setWindowTitle('Календарь')
 
     def retranslateUi(self, window):
         _translate = QtCore.QCoreApplication.translate
