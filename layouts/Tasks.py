@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-from components import Error, User, Task
+from components import Error, User
 from PyQt5.QtCore import Qt
 class Tasks(QWidget):
     def __init__(self, Form):
