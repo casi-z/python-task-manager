@@ -80,4 +80,3 @@ class User():
     def create_report(self, report_name):
         cursor.execute(f"""INSERT INTO reports(finish_date, name, username) VALUES ('{datetime.datetime.now().day}-{datetime.datetime.now().month}-{datetime.datetime.now().year}', '{report_name}', '{self.username}')""")
         database.commit()
-print()
